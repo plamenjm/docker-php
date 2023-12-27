@@ -14,5 +14,5 @@ RUN /host/image-build.sh "$GITHUB_TOKEN"
 
 WORKDIR /host
 
-# podman run -ti -p8000:8000 -v$repo:/host --name "$image" "$image" /host/docker/image-run.sh "$HOST_IP"; #--rm
+# podman run -ti -p8000:8000 -p8001:8001 -p8002:8002 -p8080:8080 -v$repo:/host --name "$image" "$image" /host/docker/image-run.sh "$HOST_IP"; #--rm
 CMD ["/host/docker/image-run.sh"]

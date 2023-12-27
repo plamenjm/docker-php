@@ -53,13 +53,13 @@ elif [ "$cmd" == 'run' ]; then
   podman rm -f "$image" || :
   HOST_IP=$(ip addr | sed -e '/inet /!d' -e 's/.*inet //' -e 's#/.*##' | head -n-1 | tail -n1)
   echo 'Press <CTRL-P-Q> to detach the container'
-  podman run -ti -p8000:8000 -v$repo:/host --name "$image" "$image" /host/docker/image-run.sh "$HOST_IP"; #--rm
+  podman run -ti -p8000:8000 -p8001:8001 -p8002:8002 -p8080:8080 -v$repo:/host --name "$image" "$image" /host/docker/image-run.sh "$HOST_IP"; #--rm
   podman ps -a
   echo 'Note: xdebug.client_host=host.containers.internal'
   echo "Note: $image: http://host.containers.internal:8000"
   echo 'Note: PHP_IDE_CONFIG="serverName=portal host.containers.internal" php ...'
 
-  # failed user www-data: podman run -t --uidmap=33:0:1 -u33 --sysctl 'net.ipv4.ping_group_range=33 33' -p8000:8000 -v$repo:/host --name "$image" "$image" bash -c 'whoami; ls -la Dockerfile'
+  # failed user www-data: podman run -t --uidmap=33:0:1 -u33 --sysctl 'net.ipv4.ping_group_range=33 33' -p8000:8000 -p8080:8080 -v$repo:/host --name "$image" "$image" bash -c 'whoami; ls -la Dockerfile'
 
   # failed ping (to-do try: --cap-add=NET_RAW --privileged)
   # echo 0 9999999 > /proc/sys/net/ipv4/ping_group_range
@@ -85,7 +85,7 @@ Wrapper scripts for podman (docker) container.
 Container:
   git, unzip, bash-completion
   php:8.2.13-fpm-bullseye, intl, opcache, xdebug
-  symfony, composer
+  symfony cli, composer
   nvm, node
 
 New project:
@@ -100,9 +100,9 @@ EOF
 
 else
   cat << EOF
-Usage: cmd.sh [info | pull | build]
-       cmd.sh [logs | kill | attach | run | bash]
-       cmd.sh [readme]
+Usage: cmd.sh <info | pull | build>
+       cmd.sh <logs | kill | attach | run | bash>
+       cmd.sh <readme>
 EOF
 
 fi

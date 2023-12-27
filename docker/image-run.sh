@@ -10,9 +10,7 @@ set -e -o functrace; ERR() { echo "ERR($1) at line $2: $3"; exit "$1"; }; trap '
 
 
 ### build
-which unzip || apt-get install -y unzip
-[ -f /etc/bash_completion ] || apt-get install -y bash-completion
-echo 'eval "$(composer completion bash)"' >> ~/.bashrc
+#
 
 
 
@@ -26,6 +24,7 @@ fi
 
 #nginx
 #php-fpm -R -D
+echo 'Hint: $ cd symfony-react; symfony serve -d && npm run watch; # npm run dev-server --live-reload; # symfony local:server:stop'
 echo 'Press <CTRL-P-Q> to detach the container'
 exec bash
 #exec tail -F /var/log/nginx-access.log /var/log/nginx-error.log /var/log/php-fpm-error.log

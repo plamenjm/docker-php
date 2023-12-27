@@ -1,12 +1,16 @@
 # docker-php
 
-<pre>
+Wrapper scripts for podman (docker) container.
+
+---
+
+```
 Wrapper scripts for podman (docker) container.
 
 Container:
   git, unzip, bash-completion
   php:8.2.13-fpm-bullseye, intl, opcache, xdebug
-  symfony, composer
+  symfony cli, composer
   nvm, node
 
 New project:
@@ -19,7 +23,7 @@ Bash completion:
   container $ vendor/bin/phpstan completion bash > ~/.bashrc-completion-phpstan; echo '. ~/.bashrc-completion-phpstan' >> ~/.bashrc
 
 
-Usage: cmd.sh [info | pull | build]
-       cmd.sh [logs | kill | attach | run | bash]
-       cmd.sh [readme]
-</pre>
+Usage: cmd.sh <info | pull | build>
+       cmd.sh <logs | kill | attach | run | bash>
+       cmd.sh <readme>
+```

@@ -17,7 +17,7 @@ PS4='Line ${LINENO}: '; set -e -o pipefail -x
 #wget -qO - 'https://packages.sury.org/php/apt.gpg' | apt-key add -
 #echo 'deb https://packages.sury.org/php/ bullseye main' >> /etc/apt/sources.list
 #apt-get update
-# ... apt-get install php8.1-fpm ...
+# ... apt-get install php8.2-fpm ...
 
 ### common
 echo 'export XDEBUG_MODE=off' >> ~/.bashrc
