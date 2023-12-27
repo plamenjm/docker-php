@@ -1,9 +1,5 @@
 # docker-php
 
-Wrapper scripts for podman (docker) container.
-
----
-
 ```
 Wrapper scripts for podman (docker) container.
 
