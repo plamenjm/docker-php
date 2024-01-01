@@ -22,9 +22,10 @@ fi
 
 
 
+###
 #nginx
 #php-fpm -R -D
-echo 'Hint: $ cd symfony-react; symfony serve -d && npm run watch; # npm run dev-server --live-reload; # symfony local:server:stop'
+echo 'Hint: $ cd symfony-project; XDEBUG_MODE= symfony serve -d; # symfony server:stop; symfony server:log'
 echo 'Press <CTRL-P-Q> to detach the container'
 exec bash
 #exec tail -F /var/log/nginx-access.log /var/log/nginx-error.log /var/log/php-fpm-error.log

@@ -6,7 +6,7 @@ repo=$(dirname -- "$(readlink -f -- "$0")")
 docker=$repo/docker
 image=${repo##*/}
 
-cmd="$1"
+cmd="$1"; shift
 
 
 
@@ -67,14 +67,19 @@ elif [ "$cmd" == 'run' ]; then
 
 elif [ "$cmd" == 'bash' ]; then
   echo 'Press <CTRL-P-Q> to detach the container'
-  exec podman exec -ti "$image" /bin/bash
+  if [ "$#" == '0' ]; then
+    exec podman exec -ti "$image" /bin/bash -l
+  else
+    # with sleep to fix: Error resizing exec session ...: could not open ctl file for terminal resize for container ...: open ~/.local/share/containers/storage/overlay-containers/.../userdata/.../ctl: no such device or address
+    exec podman exec -ti "$image" /bin/bash -l -c "sleep .1 && $*"
+  fi
 
   # failed user www-data: exec podman exec -u root:root -ti "$image" /bin/bash
 
-  # test host access
-  # getent hosts host.containers.internal
-  # curl host.containers.internal:22
-  # telnet host.containers.internal 22
+#elif [ "$cmd" == 'test-host' ]; then
+#  exec podman exec -ti "$image" /bin/bash -c 'getent hosts host.containers.internal'
+#  exec podman exec -ti "$image" /bin/bash -c 'curl host.containers.internal:22'
+#  #exec podman exec -ti "$image" /bin/bash -c 'telnet host.containers.internal 22'
 
 
 
@@ -85,8 +90,7 @@ Wrapper scripts for podman (docker) container.
 Container:
   git, unzip, bash-completion
   php:8.2.13-fpm-bullseye, intl, opcache, xdebug
-  symfony cli, composer
-  nvm, node
+  symfony cli, composer, nvm, node
 
 New project:
   container $ git config --global user.email "git@containers.internal"
@@ -101,7 +105,7 @@ EOF
 else
   cat << EOF
 Usage: cmd.sh <info | pull | build>
-       cmd.sh <logs | kill | attach | run | bash>
+       cmd.sh <logs | kill | attach | run | bash | bash $* >
        cmd.sh <readme>
 EOF
 

@@ -20,6 +20,6 @@ Bash completion:
 
 
 Usage: cmd.sh <info | pull | build>
-       cmd.sh <logs | kill | attach | run | bash>
+       cmd.sh <logs | kill | attach | run | bash | bash $* >
        cmd.sh <readme>
 ```

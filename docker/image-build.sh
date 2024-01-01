@@ -115,5 +115,9 @@ apt-get clean
 
 
 ###
-composer -V
+php -v
+nvm --version
+node --version
+npm --version
+composer --version
 symfony check:requirements
